@@ -5,6 +5,7 @@ import logout from "/assets/icons/logout.svg";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
+import PostStats from "./PostStats";
 
 export const Topbar = () => {
   const { mutate: signOut, isSuccess } = useSignOutAccount();
@@ -31,9 +32,10 @@ export const Topbar = () => {
             <img src={logout} alt="logout" />
           </Button>
           <Link to={`/profile/${user.id}`} className="flex-center gap-3">
-          <img src={user.imageUrl || 'assets/images/profile-placeholder.svg'} alt="profile" className="h-8 w-8 rounded-full" />
+          <img src={user.imageUrl || 'assets/icons/profile-placeholder.svg'} alt="profile" className="h-8 w-8 rounded-full" />
 
           </Link>
+        
         </div>
       </div>
     </section>
