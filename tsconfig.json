@@ -5,6 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -21,9 +22,9 @@
     "noFallthroughCasesInSwitch": true,
 
     // Shadcn
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"]
     }
   },
   

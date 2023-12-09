@@ -15,6 +15,7 @@ import {
   savePost,
   deleteSavePost,
   getPostById,
+  getUsers,
   updatePost,
   deletePost,
   getInfinitePosts,
@@ -22,7 +23,6 @@ import {
 } from "../appwrite/api";
 import { INewPost, INewUser, IUpdatePost } from "@/types";
 import { QUERY_KEYS } from "./queryKeys";
-import { ID } from "appwrite";
 
 export const useCreateUserAccount = () => {
   return useMutation({
@@ -161,20 +161,6 @@ export const useDeletePost = () => {
   })
 }
 
-export const useGetPosts = () => {
-  return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-    queryFn: getInfinitePosts,
-    getNextPageParam: (lastPage) => {
-      if(lastPage && lastPage.documents.length === 0) return null;
-
-      const lastId = lastPage.documents[lastPage?.documents.length - 1].$id;
-
-      return lastId;
-
-    } 
-  })
-}
 
 export const useSearchPosts = (searchTerm: string) => {
   return useQuery({
@@ -183,3 +169,28 @@ export const useSearchPosts = (searchTerm: string) => {
     enabled: !!searchTerm
   })
 }
+
+export const useGetUsers = (limit?: number) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USERS],
+    queryFn: () => getUsers(limit),
+  });
+};
+
+export const useGetPosts = () => {
+  return useInfiniteQuery({
+    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryFn: getInfinitePosts ,
+    getNextPageParam: (lastPage : any) => {
+      // If there's no data, there are no more pages.
+      if (lastPage && lastPage.documents.length === 0) 
+        return null;
+      
+
+      // Use the $id of the last document as the cursor.
+      const lastId = lastPage?.documents[lastPage?.documents.length - 1].$id;
+      return lastId;
+    },
+    initialPageParam: null
+  });
+};

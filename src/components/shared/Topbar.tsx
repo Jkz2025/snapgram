@@ -5,7 +5,6 @@ import logout from "/assets/icons/logout.svg";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
-import PostStats from "./PostStats";
 
 export const Topbar = () => {
   const { mutate: signOut, isSuccess } = useSignOutAccount();
